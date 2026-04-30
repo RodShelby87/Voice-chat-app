@@ -2,7 +2,7 @@
     --bg-color: #ffffff;
     --text-color: #333333;
     --card-bg: #f9f9f9;
-    --accent: #7289da; /* Discord-ish Blurple */
+    --accent: #7289da;
 }
 
 [data-theme="dark"] {
@@ -19,7 +19,7 @@ body {
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    height: 100vh;
+    min-height: 100vh;
     margin: 0;
     transition: 0.3s;
 }
@@ -29,16 +29,24 @@ body {
     padding: 2rem;
     border-radius: 8px;
     box-shadow: 0 4px 10px rgba(0,0,0,0.1);
-    width: 300px;
+    width: 340px;
     display: flex;
     flex-direction: column;
     gap: 10px;
 }
 
-input {
+hr {
+    border-color: #444;
+    width: 100%;
+}
+
+input[type="text"],
+input[type="password"] {
     padding: 10px;
     border: 1px solid #ccc;
     border-radius: 4px;
+    background: var(--bg-color);
+    color: var(--text-color);
 }
 
 button {
@@ -50,6 +58,10 @@ button {
     cursor: pointer;
 }
 
+button:hover {
+    opacity: 0.85;
+}
+
 #theme-toggle {
     position: absolute;
     top: 20px;
@@ -57,9 +69,55 @@ button {
 }
 
 #chat-box {
-    height: 200px;
+    height: 180px;
     overflow-y: auto;
     border: 1px solid #444;
     padding: 5px;
-    margin-bottom: 10px;
+    border-radius: 4px;
+    font-size: 0.9rem;
+}
+
+.controls {
+    display: flex;
+    gap: 6px;
+}
+
+.controls input {
+    flex: 1;
+}
+
+.voice-controls {
+    display: flex;
+    justify-content: center;
+}
+
+#user-list-container {
+    font-size: 0.85rem;
+    border: 1px solid #444;
+    border-radius: 4px;
+    padding: 6px 10px;
+}
+
+#user-list {
+    margin: 4px 0 0 0;
+    padding-left: 16px;
+}
+
+.volume-controls {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    font-size: 0.85rem;
+}
+
+.volume-controls label {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 10px;
+}
+
+.volume-controls input[type="range"] {
+    flex: 1;
+    cursor: pointer;
 }
