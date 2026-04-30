@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>VoiceChat Simple</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <button id="theme-toggle">🌙 Switch Theme</button>
+
+    <div id="auth-container" class="container">
+        <h2>Login</h2>
+        <input type="text" id="username" placeholder="Username">
+        <input type="password" id="password" placeholder="Password">
+        <input type="text" id="room-id" placeholder="Room ID">
+        <button id="join-btn">Join Room</button>
+    </div>
+
+    <div id="chat-container" class="container" style="display: none;">
+        <h2 id="room-display">Room: </h2>
+        <div id="chat-box"></div>
+        <div class="controls">
+            <input type="text" id="msg-input" placeholder="Type a message...">
+            <button id="send-btn">Send</button>
+        </div>
+        <div class="voice-controls">
+            <button id="mic-btn">🎤 Start Voice</button>
+        </div>
+    </div>
+
+    <div id="audio-grid"></div>
+
+    <script src="https://unpkg.com/peerjs@1.5.2/dist/peerjs.min.js"></script>
+    <script src="/socket.io/socket.io.js"></script>
+    <script src="script.js"></script>
+</body>
+</html>
