@@ -10,15 +10,32 @@
     <button id="theme-toggle">🌙 Switch Theme</button>
 
     <div id="auth-container" class="container">
-        <h2>Login</h2>
-        <input type="text" id="username" placeholder="Username">
-        <input type="password" id="password" placeholder="Password">
-        <input type="text" id="room-id" placeholder="Room ID">
-        <button id="join-btn">Join Room</button>
+        <h2>Join VoiceChat</h2>
+        <input type="text" id="username" placeholder="Your name">
+        <button id="create-btn">➕ Create Room</button>
+        <hr>
+        <input type="text" id="room-id-input" placeholder="Room ID to join">
+        <button id="join-btn">🚪 Join Room</button>
+        <p id="auth-error" style="color:red; display:none;"></p>
     </div>
 
     <div id="chat-container" class="container" style="display: none;">
         <h2 id="room-display">Room: </h2>
+
+        <div id="user-list-container">
+            <strong>In this room:</strong>
+            <ul id="user-list"></ul>
+        </div>
+
+        <div class="volume-controls">
+            <label>🔊 Room Volume
+                <input type="range" id="room-volume" min="0" max="100" value="100">
+            </label>
+            <label>🎙️ My Volume
+                <input type="range" id="my-volume" min="0" max="100" value="100">
+            </label>
+        </div>
+
         <div id="chat-box"></div>
         <div class="controls">
             <input type="text" id="msg-input" placeholder="Type a message...">
