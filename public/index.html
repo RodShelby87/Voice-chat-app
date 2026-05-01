@@ -17,10 +17,18 @@
         <input type="text" id="room-id-input" placeholder="Room ID to join">
         <button id="join-btn">🚪 Join Room</button>
         <p id="auth-error" style="color:red; display:none;"></p>
+        <div id="last-room-container" style="display:none;">
+            <hr>
+            <p style="margin:0; font-size:0.85rem;">Last room:</p>
+            <button id="rejoin-btn"></button>
+        </div>
     </div>
 
     <div id="chat-container" class="container" style="display: none;">
-        <h2 id="room-display">Room: </h2>
+        <div class="room-header">
+            <h2 id="room-display">Room: </h2>
+            <button id="leave-btn">🚪 Leave</button>
+        </div>
 
         <div id="user-list-container">
             <strong>In this room:</strong>
@@ -28,12 +36,15 @@
         </div>
 
         <div class="volume-controls">
-            <label>🔊 Room Volume
+            <label>🔊 Others Volume
                 <input type="range" id="room-volume" min="0" max="100" value="100">
             </label>
-            <label>🎙️ My Volume
-                <input type="range" id="my-volume" min="0" max="100" value="100">
-            </label>
+            <div class="my-volume-row">
+                <label style="flex:1;">🎙️ My Volume
+                    <input type="range" id="my-volume" min="0" max="100" value="75">
+                </label>
+                <button id="mute-btn" title="Mute/Unmute">🔇</button>
+            </div>
         </div>
 
         <div id="chat-box"></div>
