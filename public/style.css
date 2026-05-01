@@ -21,7 +21,7 @@ body {
     justify-content: center;
     min-height: 100vh;
     margin: 0;
-    transition: 0.3s;
+    transition: background-color 0.3s, color 0.3s;
 }
 
 .container {
@@ -35,10 +35,7 @@ body {
     gap: 10px;
 }
 
-hr {
-    border-color: #444;
-    width: 100%;
-}
+hr { border-color: #555; width: 100%; }
 
 input[type="text"],
 input[type="password"] {
@@ -56,11 +53,10 @@ button {
     border: none;
     border-radius: 4px;
     cursor: pointer;
+    transition: opacity 0.2s;
 }
 
-button:hover {
-    opacity: 0.85;
-}
+button:hover { opacity: 0.85; }
 
 #theme-toggle {
     position: absolute;
@@ -68,29 +64,96 @@ button:hover {
     right: 20px;
 }
 
+/* Room header */
+.room-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 8px;
+}
+
+.room-header h2 { margin: 0; font-size: 1rem; }
+
+#leave-btn {
+    background: #e04b4b;
+    padding: 6px 10px;
+    font-size: 0.8rem;
+    white-space: nowrap;
+}
+
+/* Chat box */
 #chat-box {
-    height: 180px;
+    height: 160px;
     overflow-y: auto;
     border: 1px solid #444;
     padding: 5px;
     border-radius: 4px;
-    font-size: 0.9rem;
+    font-size: 0.88rem;
 }
 
+/* Controls */
 .controls {
     display: flex;
     gap: 6px;
 }
 
-.controls input {
-    flex: 1;
-}
+.controls input { flex: 1; }
 
 .voice-controls {
     display: flex;
     justify-content: center;
 }
 
+#mic-btn { width: 100%; }
+
+#mic-btn.mic-active {
+    background-color: #43b581;
+}
+
+/* Volume */
+.volume-controls {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    font-size: 0.85rem;
+}
+
+.volume-controls label {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.volume-controls input[type="range"] {
+    flex: 1;
+    cursor: pointer;
+}
+
+.my-volume-row {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+}
+
+.my-volume-row label {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+#mute-btn {
+    padding: 6px 8px;
+    font-size: 1rem;
+    background: #555;
+    flex-shrink: 0;
+}
+
+#mute-btn.muted {
+    background: #e04b4b;
+}
+
+/* User list */
 #user-list-container {
     font-size: 0.85rem;
     border: 1px solid #444;
@@ -100,24 +163,17 @@ button:hover {
 
 #user-list {
     margin: 4px 0 0 0;
-    padding-left: 16px;
+    padding-left: 4px;
+    list-style: none;
 }
 
-.volume-controls {
+#user-list li {
+    padding: 2px 0;
     display: flex;
-    flex-direction: column;
-    gap: 6px;
-    font-size: 0.85rem;
-}
-
-.volume-controls label {
-    display: flex;
-    justify-content: space-between;
     align-items: center;
-    gap: 10px;
+    gap: 6px;
 }
 
-.volume-controls input[type="range"] {
-    flex: 1;
-    cursor: pointer;
-}
+/* Last room */
+#last-room-container p { color: var(--text-color); opacity: 0.7; }
+#rejoin-btn { background: #43b581; }
