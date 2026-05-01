@@ -6,7 +6,7 @@ const { v4: uuidv4 } = require('uuid');
 
 app.use(express.static('public'));
 
-const rooms = {}; // { roomID: { users: { socketId: { username, peerId } } } }
+const rooms = {};
 
 io.on('connection', (socket) => {
 
@@ -18,22 +18,30 @@ io.on('connection', (socket) => {
     });
 
     socket.on('join-room', (roomID, username, peerId, callback) => {
-        if (!rooms[roomID]) {
-            return callback({ error: 'Room not found.' });
-        }
+        if (!rooms[roomID]) return callback({ error: 'Room not found.' });
         joinRoom(socket, roomID, username, peerId);
         callback({ ok: true });
     });
 
     socket.on('send-message', (message) => {
         const { roomID, username } = socket;
-        if (roomID) {
-            socket.to(roomID).emit('receive-message', { user: username, msg: message });
-        }
+        if (roomID) socket.to(roomID).emit('receive-message', { user: username, msg: message });
     });
 
     socket.on('request-audio-links', () => {
         socket.to(socket.roomID).emit('user-connected', socket.peerId);
+    });
+
+    socket.on('mic-status', (isActive) => {
+        const { roomID, peerId } = socket;
+        if (roomID && rooms[roomID]) {
+            rooms[roomID].users[socket.id].micActive = isActive;
+            io.to(roomID).emit('peer-mic-status', { peerId, isActive });
+        }
+    });
+
+    socket.on('check-room', (roomID, callback) => {
+        callback(!!rooms[roomID]);
     });
 
     socket.on('disconnect', () => {
@@ -41,11 +49,10 @@ io.on('connection', (socket) => {
         if (!roomID || !rooms[roomID]) return;
 
         delete rooms[roomID].users[socket.id];
-
         socket.to(roomID).emit('user-disconnected', peerId);
         socket.to(roomID).emit('receive-message', { user: 'System', msg: `${username} left.` });
 
-        const userList = Object.values(rooms[roomID].users).map(u => u.username);
+        const userList = Object.values(rooms[roomID].users);
         io.to(roomID).emit('user-list', userList);
 
         if (Object.keys(rooms[roomID].users).length === 0) {
@@ -60,11 +67,11 @@ function joinRoom(socket, roomID, username, peerId) {
     socket.roomID = roomID;
     socket.peerId = peerId;
 
-    rooms[roomID].users[socket.id] = { username, peerId };
+    rooms[roomID].users[socket.id] = { username, peerId, micActive: false };
 
     socket.to(roomID).emit('receive-message', { user: 'System', msg: `${username} joined the room.` });
 
-    const userList = Object.values(rooms[roomID].users).map(u => u.username);
+    const userList = Object.values(rooms[roomID].users);
     io.to(roomID).emit('user-list', userList);
 }
 
